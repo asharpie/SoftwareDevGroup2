@@ -100,6 +100,12 @@ function redirectToStudentPage(selectObject) {
     var selectedOption = selectObject.value;
     if (selectedOption === "student") {
         window.location.href = "studentPage.php";
+    } else if (selectedOption === "teacher") {
+        window.location.href = "teacherPage.php";
+    } else if (selectedOption === "ta") {
+        window.location.href = "TAHomePage.php";
+    } else if (selectedOption === "admin") {
+        window.location.href = "adminHomePage.php";
     }
 }
 </script>
