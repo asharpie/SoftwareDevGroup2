@@ -15,23 +15,33 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
 }
-.header, .footer {
+.header {
     background-color: var(--dark-red);
     color: white;
     padding: 20px;
     text-align: center;
 }
-.header h1, .footer h1 {
+.header h1 {
     margin: 0;
     font-size: 36px;
     font-weight: bold;
+}
+.footer {
+    background-color: var(--dark-red);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: calc(100vh - 120px); /* Adjust for header and footer height */
 }
 .button-container {
     margin: 20px 0;
@@ -60,12 +70,6 @@ body {
     <div class="button-container">
         <button onclick="goToMyClasses()">My Classes</button>
     </div>
-    <h2>Settings</h2>
-    <select name="settings" id="settings" onchange="changeTheme(this)">
-        <option value="device">Use Device Theme</option>
-        <option value="light" selected>Light Mode</option>
-        <option value="dark">Dark Mode</option>
-    </select>
 </div>
 
 <div class="footer">
