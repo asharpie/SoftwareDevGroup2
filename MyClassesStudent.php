@@ -18,10 +18,18 @@
             color: #FFF;
             padding: 20px; /* Increased padding */
             text-align: center;
+            position: relative; /* Ensure relative positioning for child elements */
         }
         .header h1 {
             font-size: 36px; /* Bigger font size */
             font-weight: bold; /* Bold font weight */
+            margin-bottom: 0; /* Remove margin to align with back button */
+        }
+        .back-button {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
         }
         .footer {
             margin-top: auto; /* Push the footer to the bottom */
@@ -36,6 +44,7 @@
             border: none;
             cursor: pointer;
             border-radius: 5px;
+            margin: 5px; /* Add margin to the button */
         }
         .container {
             text-align: center;
@@ -60,10 +69,19 @@
             font-size: 24px; /* Increased font size for My Classes */
             margin-bottom: 10px; /* Add some bottom margin */
         }
+        .footer .button-box {
+            border: 1px solid #FFF;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="header">
+        <div class="back-button">
+            <button onclick="goBack()">Back to Home</button>
+        </div>
         <h1>Ole Miss Notes Center</h1>
     </div>
 
@@ -111,7 +129,12 @@
 
     <!-- Footer Bar -->
     <div class="footer">
-        <button onclick="goToSettings()">Settings</button>
+        <div class="button-box">
+            <button onclick="goToSettings()">Settings</button>
+        </div>
+        <div class="button-box">
+            <button onclick="goToReport()">Report</button>
+        </div>
     </div>
 
     <script>
@@ -122,6 +145,16 @@
             // Redirect to settings page or perform any other action
             // Example:
             window.location.href = 'SettingsLogoutPage.php';
+        }
+        function goToReport() {
+            // Redirect to report page or perform any other action
+            // Example:
+            window.location.href = 'ReportPage.php';
+        }
+        function goBack() {
+            // Redirect to home page or perform any other action
+            // Example:
+            window.location.href = 'Studentpage.php';
         }
     </script>
 </body>
