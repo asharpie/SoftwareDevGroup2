@@ -59,8 +59,8 @@
 </head>
 <body>
     <div class="form-container">
-        <h2>Register</h2>
-        <form id="register" action="/submit_registration" method="post">
+        <h2>Sign Up</h2>
+        <form id="register" action="RegisterPage.php" method="post">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
             
@@ -97,11 +97,13 @@
             } else {
                 document.getElementById('passwordError').innerText = '';
             }
-        });
+        })
+
+        
     </script>
+
 </body>
 </html>
-
 
 <?php
 require '/home/peguibar/connections/connect.php';
@@ -111,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userType = $_POST["userType"];
     $password = $_POST["password"];
 
-    $query = 'INSERT INTO Users (um_email, user_type, password) VALUES (:email, :userType, :password)'; // Corrected SQL syntax
+    $query = 'INSERT INTO Users (um_email, user_type, password) VALUES (:email, :userType, :password)'; 
 
     $stmt = $conn->prepare($query); 
     $stmt->bindParam(':email', $email); 
@@ -123,5 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
+
+    header("Location: Login.php");
 }
 ?>
