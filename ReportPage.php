@@ -18,6 +18,7 @@
             color: #FFF;
             padding: 20px; /* Increased padding */
             text-align: center;
+            position: relative; /* Added position relative */
         }
         .header h1, .footer h1 {
             font-size: 36px; /* Bigger font size */
@@ -82,10 +83,19 @@
         .menu ul ul {
             margin-left: 20px;
         }
+        .back-button {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
     </style>
 </head>
 <body>
     <div class="header">
+        <div class="back-button"> <!-- Added back button -->
+            <button onclick="goBack()">Back to Home</button>
+        </div>
         <h1>Ole Miss Notes Center</h1>
     </div>
 
@@ -143,6 +153,9 @@
         }
         function goToSettings() {
             window.location.href = 'SettingsLogoutPage.php';
+        }
+        function goBack() {
+            window.history.back();
         }
     </script>
 </body>
