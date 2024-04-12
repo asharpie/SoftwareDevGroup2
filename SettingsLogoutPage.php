@@ -15,6 +15,14 @@
             color: #FFF;
             padding: 20px;
             text-align: center;
+            position: relative; /* Added position relative */
+        }
+
+        .back-button {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .menu {
@@ -79,6 +87,9 @@
 </head>
 <body>
     <div class="header">
+        <div class="back-button"> <!-- Added back button -->
+            <button onclick="goBack()">Back to Home</button>
+        </div>
         <h1 id="oleMissNotesCenter">Ole Miss Notes Center</h1>
     </div>
 
@@ -102,6 +113,10 @@
 
     <script>
         function loadProfile() {
+            // Get the user account status from the server (example)
+            const accountStatus = "TA"; // Example: "Student", "Teacher", "TA", or "Admin"
+            
+            // Display the account status in the "My Profile" tab
             document.querySelector('.content').innerHTML = `
                 <h2 id="pageTitle">My Profile</h2>
                 <p>First Name: John</p>
@@ -109,6 +124,7 @@
                 <p>Email: johndoe@example.com</p>
                 <p>Date of Birth: January 1, 1990</p>
                 <p>Account Created: January 1, 2020</p>
+                <p>Account Status: ${accountStatus}</p> <!-- Display account status here -->
             `;
         }
 
@@ -160,17 +176,14 @@
         }
 
         function setLightMode() {
-            document.body.style.backgroundColor = "#BFEFFF"; /* Light blue background */
+            document.body.style.backgroundColor = "#FFF"; /* White background */
             // Additional light mode styling
         }
 
-        // Initial load
-        loadProfile();
-
-        // Prevent default behavior for links
-        document.querySelectorAll('.menu a').forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
-            });
-        });
+        // Function to go back to the previous page
+        function goBack() {
+            window.history.back();
+        }
     </script>
+</body>
+</html>
