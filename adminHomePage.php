@@ -7,45 +7,74 @@
 :root {
     --background-color: white;
     --text-color: black;
+    --button-color: #B30000; /* Red color for buttons */
 }
 body {
     background-color: var(--background-color);
     color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+}
+.header {
+    background-color: var(--button-color);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.footer {
+    background-color: var(--button-color);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.button {
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
 }
 </style>
 </head>
-<body onload="changeTheme(document.getElementById('settings'))">
-<h1>Admin Home Page</h1>
-<h2>View Requests</h2>
-<!-- Add functionality for viewing requests here -->
-<h2>Settings</h2>
-<select name="settings" id="settings" onchange="changeTheme(this)">
-    <option value="device" selected>Use Device Theme</option>
-    <option value="light">Light Mode</option>
-    <option value="dark">Dark Mode</option>
-</select>
-<button onclick="logout()">Logout</button>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Admin Home Page</h1>
+    </div>
+    <div class="button-container">
+        <button class="button" onclick="goToViewRequests()">View Requests</button>
+    </div>
+    <div class="footer">
+        <button class="button" onclick="goToSettings()">Settings</button>
+        <button class="button" onclick="goToReportPage()">Report</button>
+    </div>
+</div>
+
 <script>
-function changeTheme(selectObject) {
-    var selectedOption = selectObject.value;
-    if (selectedOption === "dark") {
-        document.documentElement.style.setProperty('--background-color', 'black');
-        document.documentElement.style.setProperty('--text-color', 'white');
-    } else if (selectedOption === "light") {
-        document.documentElement.style.setProperty('--background-color', 'white');
-        document.documentElement.style.setProperty('--text-color', 'black');
-    } else if (selectedOption === "device") {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.style.setProperty('--background-color', 'black');
-            document.documentElement.style.setProperty('--text-color', 'white');
-        } else {
-            document.documentElement.style.setProperty('--background-color', 'white');
-            document.documentElement.style.setProperty('--text-color', 'black');
-        }
-    }
+function goToViewRequests() {
+    window.location.href = "ViewRequestsAdmin.php";
 }
-function logout() {
-    window.location.href = "HomePageTest.php";
+
+function goToSettings() {
+    window.location.href = "SettingsLogoutPage.php";
+}
+
+function goToReportPage() {
+    window.location.href = "ReportPage.php";
 }
 </script>
 </body>
