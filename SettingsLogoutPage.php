@@ -162,7 +162,7 @@
             if (confirm("Are you sure you want to sign out?")) {
                 // Perform sign out action
                 // Example:
-                window.location.href = 'logout.php';
+                window.location.href = 'LoginPage.php';
             }
         }
 
