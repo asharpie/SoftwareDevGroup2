@@ -38,17 +38,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '</script>';
         } else {
             // Insert the new user into the database
-            $query = 'INSERT INTO UserAccount (um_email, user_type, password) VALUES (:email, :userType, :password)'; 
-            $stmt = $conn->prepare($query); 
-            $stmt->bindParam(':email', $email); 
-            $stmt->bindParam(':userType', $userType); 
-            $stmt->bindParam(':password', $password); 
+            $query = 'INSERT INTO UserAccount (um_email, user_type, password) VALUES (:email, :userType, :password)';
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':userType', $userType);
+            $stmt->bindParam(':password', $password);
 
             try {
                 $stmt->execute();
                 // Redirect to login page after successful registration
                 header("Location: LoginPage.php");
-                exit(); 
+                exit();
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
@@ -64,10 +64,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <title>Sign Up - Ole Miss Notes Center</title>
 <style>
 :root {
-    --background-color: white; 
-    --text-color: black; 
-    --button-color: #800000; 
-    --button-hover-color: #a00000; 
+    --background-color: white;
+    --text-color: black;
+    --button-color: #800000;
+    --button-hover-color: #a00000;
 }
 body {
     background-color: var(--background-color);
@@ -78,8 +78,8 @@ body {
 }
 .container {
     display: flex;
-    justify-content: center; /* Horizontally center */
-    align-items: center; /* Vertically center */
+    justify-content: center;
+    align-items: center;
     height: 100vh;
     margin-top: -80px;
 }
@@ -121,8 +121,8 @@ body {
     padding: 10px;
     border-radius: 5px;
     border: none;
-    background-color: #ddd; /* Light gray background for input fields */
-    color: #333; /* Darker text color for input fields */
+    background-color: #ddd;
+    color: #333;
 }
 .button {
     background-color: var(--button-color);
@@ -133,6 +133,7 @@ body {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    margin-top: 10px;
 }
 .button:hover {
     background-color: var(--button-hover-color);
@@ -144,7 +145,7 @@ body {
 h2 {
     text-align: center;
 }
-         
+
 </style>
 </head>
 <body>
@@ -171,7 +172,7 @@ h2 {
                 <label for="userType">I am a:</label>
                 <select name="userType" id="userType">
                     <option value="student">Student</option>
-                    <option value="TA">TA</option>
+                    <option value="ta">TA</option>
                     <option value="professor">Professor</option>
                 </select>
             </div>
@@ -179,6 +180,7 @@ h2 {
             <div class="error-message"><?php echo $error; ?></div>
             <button type="submit" class="button">Sign Up</button>
         </form>
+        <button class="button" onclick="redirectToLoginPage()">Already have an account?</button>
     </div>
 </div>
 <div class="footer">
@@ -192,15 +194,17 @@ h2 {
 
             if (password !== confirmPassword) {
                 document.getElementById('passwordError').innerText = 'Passwords do not match';
-                event.preventDefault(); 
+                event.preventDefault();
             } else {
                 document.getElementById('passwordError').innerText = '';
             }
-        })
+        });
 
-        
+        function redirectToLoginPage() {
+            window.location.href = "LoginPage.php";
+        }
 </script>
+
 
 </body>
 </html>
-
