@@ -1,3 +1,46 @@
+
+<?php
+require '/home/group2/public_html/connect.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get user input from the login form
+    $email = $_POST["email"];
+    $password = $_POST["password"];
+    $userType = $_POST["userType"];
+
+    try {
+        // Prepare SQL query to fetch user from database
+        $stmt = $conn->prepare("SELECT * FROM UserAccount WHERE um_email = :email AND password = :password AND user_type = :userType");
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':userType', $userType);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($user) {
+            // User credentials are correct, redirect based on user type
+            if ($userType === 'student') {
+                header("Location: Studentpage.php");
+                exit();
+            } elseif ($userType === 'ta') {
+                header("Location: TaPage.php");
+                exit();
+            } elseif ($userType === 'professor') {
+                header("Location: TeacherPage.php");
+                exit();
+            } elseif ($userType === 'admin') {
+                header("Location: AdminHomepage.php");
+                exit();
+            }
+        } else {
+            // User not found or credentials are incorrect
+            echo '<script>alert("Email/Password/User Type combination is incorrect.");</script>';
+        }
+    } catch(PDOException $e) {
+        echo "Connection failed: " . $e->getMessage();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +49,10 @@
 <title>Login - Ole Miss Notes Center</title>
 <style>
 :root {
-    --background-color: white; /* Change background color to white */
-    --text-color: black; /* Change text color to black */
-    --button-color: #800000; /* Dark red for buttons */
-    --button-hover-color: #a00000; /* Darker red for button hover */
+    --background-color: white;
+    --text-color: black;
+    --button-color: #800000;
+    --button-hover-color: #a00000;
 }
 body {
     background-color: var(--background-color);
@@ -24,6 +67,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    margin-top: -80px;
 }
 .header {
     background-color: var(--button-color);
@@ -42,7 +86,7 @@ body {
     bottom: 0;
 }
 .form-container {
-    background-color: #f0f0f0; /* Lighter background for form */
+    background-color: #f0f0f0;
     padding: 20px;
     border-radius: 10px;
     width: 300px;
@@ -57,22 +101,23 @@ body {
 }
 .input-group input[type="text"],
 .input-group input[type="password"] {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     border-radius: 5px;
     border: none;
-    background-color: #ddd; /* Light gray background for input fields */
-    color: #333; /* Darker text color for input fields */
+    background-color: #ddd;
+    color: #333;
 }
 .button {
     background-color: var(--button-color);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 5px 15px;
     font-size: 18px;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    margin-top: 10px;
 }
 .button:hover {
     background-color: var(--button-hover-color);
@@ -85,7 +130,7 @@ body {
 </div>
 <div class="container">
     <div class="form-container">
-        <form id="loginForm">
+        <form id="loginForm" action="LoginPage.php" method="post">
             <div class="input-group">
                 <label for="email">Ole Miss Email:</label>
                 <input type="text" id="email" name="email" required>
@@ -99,7 +144,7 @@ body {
                 <select name="userType" id="userType">
                     <option value="student">Student</option>
                     <option value="ta">TA</option>
-                    <option value="teacher">Teacher</option>
+                    <option value="professor">Professor</option>
                     <option value="admin">Admin</option>
                 </select>
             </div>
@@ -117,29 +162,29 @@ body {
 
 <script>
 document.getElementById("loginForm").addEventListener("submit", function(event){
-    event.preventDefault(); // Prevent form submission
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
     var userType = document.getElementById("userType").value;
-    // Here you can add logic to redirect users based on their userType
+    // Redirect to selected account type
     if (userType === 'student') {
-        window.location.href = "Studentpage.php";
+        window.location.href = "studentpage.php";
     } else if (userType === 'ta') {
-        window.location.href = "TaPage.php";
+        window.location.href = "TAPage.php";
     } else if (userType === 'teacher') {
-        window.location.href = "TeacherPage.php";
+        window.location.href = "teacherPage.php";
     } else if (userType === 'admin') {
-        window.location.href = "AdminHomepage.php";
+        window.location.href = "AdminHomePage.php";
     }
 });
 
 function forgotPassword() {
-    // Functionality to handle forgot password
+    window.location.href = "ForgotPassword.php";
 }
 
 function createAccount() {
-    // Functionality to handle creating a new account
+    window.location.href = "RegisterPage.php";
 }
 </script>
+
 </body>
 </html>
