@@ -126,23 +126,26 @@ body {
 
 <div class="container">
     <div class="form-container">
-        <form>
+        <form action="upload.php" method="post" enctype="multipart/form-data">
             <input type="text" name="classTitle" placeholder="Class Title">
-            <input type="text" name="classID" placeholder="Class ID" readonly>
+            <input type="text" name="classID" id="classID" placeholder="Class ID" readonly>
             <textarea name="classDescription" placeholder="Class Description" rows="4"></textarea>
             <select name="fileDropdown">
                 <option value="files">Files</option>
             </select>
             <div class="file-upload">
-                <input type="file" id="fileInput" multiple>
+                <input type="file" id="fileInput" name="fileInput" multiple>
                 <label for="fileInput">Upload Files</label>
             </div>
+            <!-- Hidden input field for class_id -->
+            <input type="hidden" name="class_id" id="hiddenClassID">
             <div class="button-container">
-                <button type="submit">Create Class</button>
+                <button type="submit" onclick="setHiddenClassID()">Create Class</button>
             </div>
         </form>
     </div>
 </div>
+
 
 <div class="footer">
     <button onclick="goToSettings()">Settings</button>
@@ -160,6 +163,12 @@ function generateClassID() {
         classID += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return classID;
+}
+
+// Function to set the value of the hidden input field
+function setHiddenClassID() {
+    var classID = document.querySelector('#classID').value;
+    document.querySelector('#hiddenClassID').value = classID;
 }
 
 function goToSettings() {
